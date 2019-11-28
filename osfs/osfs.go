@@ -31,8 +31,8 @@ func (fs *FileSystem) Abs(path string) (string, error) {
 	return filepath.Abs(path)
 }
 
-func (fs *FileSystem) Chdir(name string) error {
-	return os.Chdir(name)
+func (fs *FileSystem) Chdir(dir string) error {
+	return os.Chdir(dir)
 }
 
 func (fs *FileSystem) Getwd() (dir string, err error) {

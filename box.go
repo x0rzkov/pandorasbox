@@ -130,9 +130,9 @@ func (b *Box) IsPathSeparator(c uint8, vfsMode bool) bool {
 	return osfs.IsPathSeparator(c)
 }
 
-func (b *Box) Chdir(dir string, vfsMode bool) error {
-	if vfsMode {
-		return b.vfs.Chdir(dir)
+func (b *Box) Chdir(dir string) error {
+	if vfsDir, ok := ConvertVFSPath(dir); ok {
+		return b.vfs.Chdir(vfsDir)
 	}
 
 	return b.osfs.Chdir(dir)

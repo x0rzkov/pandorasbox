@@ -62,8 +62,8 @@ func IsPathSeparator(c uint8, vfs bool) bool {
 	return box.IsPathSeparator(c, vfs)
 }
 
-func Chdir(dir string, vfs bool) error {
-	return box.Chdir(dir, vfs)
+func Chdir(dir string) error {
+	return box.Chdir(dir)
 }
 
 func Getwd(vfs bool) (string, error) {

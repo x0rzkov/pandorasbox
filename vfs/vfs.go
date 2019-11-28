@@ -102,28 +102,28 @@ func (fs *FileSystem) Rename(oldpath, newpath string) error {
 	return nil
 }
 
-func (fs *FileSystem) Chdir(name string) (err error) {
+func (fs *FileSystem) Chdir(dir string) (err error) {
 	fs.mtx.Lock()
 	defer fs.mtx.Unlock()
 
-	if name == "/" {
+	if dir == "/" {
 		fs.cwd = "/"
 		fs.dir = fs.root
 		return nil
 	}
 	wd := fs.root
-	cwd := name
-	if !IsAbs(name) {
-		cwd = Join(fs.cwd, name)
+	cwd := dir
+	if !IsAbs(dir) {
+		cwd = Join(fs.cwd, dir)
 		wd = fs.dir
 	}
 
-	node, err := wd.Resolve(name)
+	node, err := wd.Resolve(dir)
 	if err != nil {
-		return &os.PathError{Op: "chdir", Path: name, Err: err}
+		return &os.PathError{Op: "chdir", Path: dir, Err: err}
 	}
 	if !node.IsDir() {
-		return &os.PathError{Op: "chdir", Path: name, Err: errors.New("not a directory")}
+		return &os.PathError{Op: "chdir", Path: dir, Err: errors.New("not a directory")}
 	}
 
 	fs.cwd = cwd
